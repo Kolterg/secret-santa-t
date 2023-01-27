@@ -1,0 +1,28 @@
+.app-header {
+  background-color: rgb(255, 200, 200);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  margin: 0 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+.contentBox {
+  background-color: #8fe795;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 93vh;
+}
+
+.content {
+  background-color: rgb(245, 115, 115);
+  margin-bottom: 50px;
+  width: 500px;
+  min-height: 250px;
+}

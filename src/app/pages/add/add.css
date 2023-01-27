@@ -1,0 +1,43 @@
+h3 {
+    margin: 10px 0 ;
+}
+
+h4 {
+    margin: 8px;
+}
+
+.add {
+    background-color: rgb(245, 115, 115);
+    margin: 50px 0;
+    width: 500px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentAddPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contentRegistrationPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonBox {
+    margin-top: 20px;
+}
+
+button {
+    margin: 8px;
+    width: 220px;
+}
+
+.submitBtn {
+    display: none;
+}

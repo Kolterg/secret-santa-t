@@ -1,0 +1,10 @@
+.getInTouch {
+    background-color: rgb(245, 115, 115);
+    margin: 50px 0;
+    width: 500px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
