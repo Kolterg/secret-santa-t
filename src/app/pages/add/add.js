@@ -27,7 +27,7 @@ export default function Add() {
         countArr[i] = i + 1;
     }
 
-    function usersRegistration(blockCount) {
+    function usersRegistration() {
         return <div className='contentRegistrationPage'>
             <h3>Введіть дані учасників</h3>
             {
@@ -40,9 +40,9 @@ export default function Add() {
             <div className='buttonBox'>
                 <button onClick={() => setUsersAreDefined(false)}>Назад</button>
                 <button onClick={() => {
-                    // users.map(value => ContactUs(value.name, value.email))
-                    // sendEmails();
-                    randomUsers(users);
+                    users.map(value => ContactUs(value.name, value.email))
+                    sendEmails();
+                    // randomUsers2(users);
                 }}>Підтвердити</button>
             </div>
         </div>
@@ -52,46 +52,46 @@ export default function Add() {
         let rand;
         while (true) {
             let flag = true;
-            console.log("Rand-----------------------------------------Rand");
             let randomValue = Math.floor(Math.random() * length);
-            console.log("ex: " + exclusion);
-            console.log("Random value " + randomValue);
             for (let ex of exclusion) {
                 if (ex === randomValue) {
-                    console.log(`ex: ${ex} === randVal: ${randomValue}`);
                     flag = false;
                     break;
                 }
-                console.log(`ex: ${ex} !== randVal: ${randomValue}`);
 
             }
             if (flag) {
                 rand = randomValue;
-                console.log("Break");
                 break;
             }
         }
-        console.log("-Rand-----------------------------------------Rand-");
+        
         return rand;
     }
 
 
     function randomUsers(santas) {
-        let receivers = santas.map(value => value);
+        let receivers = [...santas];
         let exclusions = [];
-        console.log("-----------------------------------------");
 
         for (let i = 0; i < santas.length; i++) {
-            let exclusionsInCicle = exclusions.map(value => value);
+            let exclusionsInCicle = [...exclusions];
             exclusionsInCicle.push(i);
             let receiversNum = getRandom(santas.length, exclusionsInCicle);
-            console.log("Num of reciver " + receiversNum);
             console.log(santas[i].name + " дарує подарунок " + receivers[receiversNum].name);
             exclusions.push(receiversNum);
-            console.log("exclusions: " + exclusions);
         }
 
         exclusions = [];
+    }
+
+    function randomUsers2(santas) {
+        const santasClones = [...santas];
+        const randIdx = Math.floor(Math.random() * santasClones.length);
+        while(santasClones.length) {
+            const [receiver] = santasClones.splice(randIdx, 1);
+            console.log(receiver.name)
+        }
     }
 
     function sendEmails() {
