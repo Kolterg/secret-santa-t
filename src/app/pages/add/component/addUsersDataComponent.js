@@ -4,8 +4,8 @@ import emailjs from '@emailjs/browser';
 
 function AddUserData({ value, getUsersData }) {
 
-    let [userName, setUserName] = useState();
-    let [userEmail, setUserEmail] = useState();
+    let [userName, setUserName] = useState('');
+    let [userEmail, setUserEmail] = useState('');
 
     getUsersData(userName, userEmail, value - 1)
 
