@@ -11,7 +11,7 @@ import GetInTouchPage from './pages/getInTouch/getInTouch';
 
 function App() {
   return (
-    <div className="app">
+    <div className="app wrapper">
       <Router>
         <header className="app-header">
           <Link to={''} className="link" >Main</Link>
