@@ -1,17 +1,21 @@
+import './add.css';
+
 import { useState } from 'react';
-import './add.css'
 import AddUserData from './component/addUsersDataComponent';
 import emailjs from '@emailjs/browser';
+import CryptoJS from "crypto-js";
 
 export default function Add() {
 
-    let [usersCount, setUsersCount] = useState(3);
-    let [usersAreDefined, setUsersAreDefined] = useState(false);
+    const [usersCount, setUsersCount] = useState(3);
+    const [usersAreDefined, setUsersAreDefined] = useState(false);
 
     let santaList = [];
     let users = [];
 
-    let getUsersData = (userName, userEmail, index) => {
+    const secretPass = "XkhZG4fW2t2W";
+
+    const getUsersData = (userName, userEmail, index) => {
         users[index] = { name: userName, email: userEmail }
     }
 
@@ -24,6 +28,7 @@ export default function Add() {
     }
 
     let countArr = [];
+
     for (let i = 0; i < usersCount; i++) {
         countArr[i] = i + 1;
     }
@@ -108,7 +113,7 @@ export default function Add() {
         for (let i = 0; i < users.length; i++) {
             let sender = users[i];
             let receiver = users[(i + 1) % users.length];
-            santaList[i] = { receiver_name: receiver.name, receiver_email: receiver.email, sender_name: sender.name, sender_email: sender.email }
+            santaList[i] = { receiver_name: receiver.name, receiver_email: receiver.email, sender_name: sender.name, sender_email: encryptData(sender.email), massage: '' }
             console.log(santaList[i]);
             // console.log('sender: ', users[i].user_name);
             // console.log('receiver: ', users[(i + 1) % users.length].user_name);
@@ -124,7 +129,7 @@ export default function Add() {
                 console.log(error.text);
             });
     };
-    
+
     //---------------------------------------------------------------------------------------------------------------------
 
     const body = document.body;// querySelector('body');
@@ -208,7 +213,7 @@ export default function Add() {
     }
 
     //Closes the modal window with escape       //Закриває модальне вікно за ESC-ейпом
-    document.addEventListener('keydown', function ({which}) {
+    document.addEventListener('keydown', function ({ which }) {
         if (which === 27) {
             const popupActive = document.querySelector('.popup.open');
             popupClose(popupActive);
@@ -217,10 +222,25 @@ export default function Add() {
 
     //-----------------------------------------------------------------------------------------------------------------
 
+    const encryptData = (value) => {
+        const data = CryptoJS.AES.encrypt(
+            JSON.stringify(value),
+            secretPass
+        ).toString();
+
+        return data;
+    };
+
+    const decryptData = (value) => {
+        const bytes = CryptoJS.AES.decrypt(value, secretPass);
+        const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        return data;
+    };
+
     return (
         <div className='add'>
             {usersAreDefined ? usersRegistration() : add()}
-            {/* {ContactUs()} */}
+
             <div id={"popup"} className="popup">
                 <div className="popup_body">
                     <div className="popup_content">
@@ -232,7 +252,7 @@ export default function Add() {
                         </div>
                         <p>Бажаєте підтвердити дані?</p>
                         <button onClick={() => {
-                            santaList.map(value => sendEmail(value))
+                            santaList.map(value => sendEmail(value));
                             users = [];
                             santaList = [];
                             setUsersAreDefined(false)
@@ -247,8 +267,8 @@ export default function Add() {
                     <div className="popup_content">
                         <p className="popup_close" onClick={() => popupCloseOne('popup_ok')}>X</p>
                         <h3>Все гаразд</h3>
-                        <div className={"popup_text"}>Листи вдало відправлені</div> 
-                        <button onClick={() => popupCloseOne('popup_ok')}>Повернутись</button>
+                        <div className={"popup_text"}>Листи вдало відправлені</div>
+                        <button onClick={() => popupCloseOne('popup_ok')}>Ок</button>
                     </div>
                 </div>
             </div>
