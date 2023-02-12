@@ -1,6 +1,6 @@
 import './add.css';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddUserData from './component/addUsersDataComponent';
 import emailjs from '@emailjs/browser';
 import CryptoJS from "crypto-js";
@@ -22,10 +22,12 @@ export default function Add() {
     function add() {
         return <div className='contentAddPage'>
             <h3>Задайте кількість учасників</h3>
-            <input type={'number'} name={'inputUsersCount'} min={'2'} placeholder={'Введить кілкість учасників'} value={usersCount} onChange={e => setUsersCount(e.target.value)} />
-            <button onClick={() => setUsersAreDefined(true)}>OK</button>
+            <input type={'number'} name={'inputUsersCount'} min={'3'} placeholder={'Введить кілкість учасників'} value={usersCount} onChange={e => setUsersCount(e.target.value)} />
+            <button id={'usCountBtn'} onClick={() => setUsersAreDefined(true)}>OK</button>
         </div>
     }
+
+    useEffect(() => {usersCount < 3? document.getElementById('usCountBtn').disabled = false: document.getElementById('usCountBtn').disabled = true}, usersCount)
 
     let countArr = [];
 
@@ -48,8 +50,7 @@ export default function Add() {
                 <button onClick={() => {
                     randomUsers();
                     createSantaList();
-                    // santaList.map(value => sendEmail(value))
-                    popupOpen('popup')
+                    popupOpen('popup');
                 }}>Підтвердити</button>
             </div>
         </div>
@@ -100,23 +101,18 @@ export default function Add() {
     // }
 
     function randomUsers() {
-
         for (let i = 0; i < users.length; i++) {
             const j = Math.floor(Math.random() * users.length);
             [users[i], users[j]] = [users[j], users[i]];
         }
-        console.log(users);
     }
 
     function createSantaList() {
-
         for (let i = 0; i < users.length; i++) {
-            let sender = users[i];
+            const sender = users[i];
             let receiver = users[(i + 1) % users.length];
-            santaList[i] = { receiver_name: receiver.name, receiver_email: receiver.email, sender_name: sender.name, sender_email: encryptData(sender.email), massage: '' }
+            santaList[i] = { receiver_name: receiver.name, receiver_email: receiver.email, sender_name: sender.name, sender_email: encryptData(sender.email), massage: '' };
             console.log(santaList[i]);
-            // console.log('sender: ', users[i].user_name);
-            // console.log('receiver: ', users[(i + 1) % users.length].user_name);
         }
     }
 
@@ -128,6 +124,15 @@ export default function Add() {
             }, (error) => {
                 console.log(error.text);
             });
+    };
+
+    const encryptData = (value) => {
+        const data = CryptoJS.AES.encrypt(
+            JSON.stringify(value),
+            secretPass
+        ).toString();
+
+        return data;
     };
 
     //---------------------------------------------------------------------------------------------------------------------
@@ -221,21 +226,6 @@ export default function Add() {
     });
 
     //-----------------------------------------------------------------------------------------------------------------
-
-    const encryptData = (value) => {
-        const data = CryptoJS.AES.encrypt(
-            JSON.stringify(value),
-            secretPass
-        ).toString();
-
-        return data;
-    };
-
-    const decryptData = (value) => {
-        const bytes = CryptoJS.AES.decrypt(value, secretPass);
-        const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        return data;
-    };
 
     return (
         <div className='add'>
