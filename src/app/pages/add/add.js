@@ -9,6 +9,7 @@ export default function Add() {
 
     const [usersCount, setUsersCount] = useState(3);
     const [usersAreDefined, setUsersAreDefined] = useState(false);
+    // const [isValid, setIsValid] = useState();
 
     let santaList = [];
     let users = [];
@@ -16,7 +17,7 @@ export default function Add() {
     const secretPass = "XkhZG4fW2t2W";
 
     const getUsersData = (userName, userEmail, index) => {
-        users[index] = { name: userName, email: userEmail }
+        users[index] = { name: userName, email: userEmail };
     }
 
     function add() {
@@ -27,7 +28,7 @@ export default function Add() {
         </div>
     }
 
-    useEffect(() => {usersCount < 3? document.getElementById('usCountBtn').disabled = false: document.getElementById('usCountBtn').disabled = true}, usersCount)
+    useEffect(() => { usersCount > 2 ? document.getElementById('usCountBtn').disabled = false : document.getElementById('usCountBtn').disabled = true }, [usersCount])
 
     let countArr = [];
 
@@ -37,6 +38,7 @@ export default function Add() {
 
     function usersRegistration() {
         return <div className='contentRegistrationPage'>
+            <button className='buttonBack' onClick={() => setUsersAreDefined(false)}>Назад</button>
             <h3>Введіть дані учасників</h3>
             {
                 countArr.map((value, index) => <AddUserData
@@ -46,7 +48,6 @@ export default function Add() {
                 />)
             }
             <div className='buttonBox'>
-                <button onClick={() => setUsersAreDefined(false)}>Назад</button>
                 <button onClick={() => {
                     randomUsers();
                     createSantaList();
@@ -135,9 +136,9 @@ export default function Add() {
         return data;
     };
 
-    //---------------------------------------------------------------------------------------------------------------------
+    //------------------------------------------------Modal-window---------------------------------------------------------------------
 
-    const body = document.body;// querySelector('body');
+    const body = document.body;     // querySelector('body');
     const lockPadding = document.querySelectorAll('.lock-padding');
 
     let unlock = true;
@@ -255,7 +256,7 @@ export default function Add() {
             <div id={"popup_ok"} className="popup">
                 <div className="popup_body">
                     <div className="popup_content">
-                        <p className="popup_close" onClick={() => popupCloseOne('popup_ok')}>X</p>
+                        <button className="popup_close" onClick={() => popupCloseOne('popup_ok')}>X</button>
                         <h3>Все гаразд</h3>
                         <div className={"popup_text"}>Листи вдало відправлені</div>
                         <button onClick={() => popupCloseOne('popup_ok')}>Ок</button>
