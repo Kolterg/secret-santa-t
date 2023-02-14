@@ -1,41 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function AddUserData({ value, getUsersData }) {
 
-    const [validation, setValidation] = useState({ name: '', email: '' });
-    const [user, setUser] = useState({ name: '', email: '' });
-    const [formErrors, setFormErrors] = useState({});
+    const [form, setForm] = useState({ name: '', email: '' });
+    const [errors, setErrors] = useState({
+        name: {
+            message: "",
+            dirty: false
+        },
+        email: {
+            message: "",
+            dirty: false
+        }
+    });
 
-    getUsersData(user.name, user.email, value - 1);
+    getUsersData(form.name, form.email, value - 1);
 
     function checkValidation() {
-        let errors = {};
+        let err = JSON.parse(JSON.stringify(errors));
         const emailCond = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/;
 
-        if (!user.name.trim()) {
-            errors.name = "Name is required";
+        if (!form.name.trim()) {
+            err.name.message = "Name is required";
         } else {
-            errors.name = "";
+            err.name.message = "";
         }
 
-        if (!user.email.trim()) {
-            errors.email = "Email is required";
-        } else if (!user.email.match(emailCond)) {
-            errors.email = "Please ingress a valid email address";
+        if (!form.email.trim()) {
+            err.email.message = "Email is required";
+        } else if (!form.email.match(emailCond)) {
+            err.email.message = "Please ingress a valid email address";
         } else {
-            errors.email = "";
+            err.email.message = "";
         }
 
-        setValidation(errors);
+        setErrors(err);
     }
 
-    useEffect(() => {
-        checkValidation();
-    }, [user]);
+    function onBlur(e) {
+        const { name } = e.target;
+        if (errors[name].dirty) {
+            checkValidation();
+        }
+    }
 
     function handleChange(e) {
         const { name, value } = e.target;
-        setUser({ ...user, [name]: value });
+        setForm({ ...form, [name]: value });
+        setErrors({ ...errors, [name]: { ...errors[name], dirty: true } });
+        if (errors[name].dirty) {
+            checkValidation();
+        }
     }
 
 
@@ -45,15 +60,14 @@ function AddUserData({ value, getUsersData }) {
             <form id={`form${value}`} className={"contentRegistrationPage"}>
                 <div>
                     <label htmlFor={'username'}>Ім'я </label>
-                    <input className={"textInput"} type={'text'} name={'name'} id={"username"} placeholder={"Введіть ім'я учасника"} value={user.name} onChange={handleChange} />
-                    {JSON.stringify(validation.name)}
+                    <input className={"textInput"} type={'text'} name={'name'} placeholder={"Введіть ім'я учасника"} value={form.name} onChange={handleChange} onBlur={onBlur} />
                 </div>
+                {errors.name.dirty && errors.name.message ? <p>{errors.name.message}</p> : null}
                 <div>
                     <label htmlFor={'username'}>Е-пошта </label>
-                    <input className={"textInput"} type={'text'} name={'email'} placeholder={"Введіть email учасника"} value={user.email} onChange={handleChange} />
-                    {JSON.stringify(validation.email)}
-
+                    <input className={"textInput"} type={'text'} name={'email'} placeholder={"Введіть email учасника"} value={form.email} onChange={handleChange} onBlur={onBlur} />
                 </div>
+                {errors.email.dirty && errors.email.message ? <p>{errors.email.message}</p> : null}
             </form>
         </div>
     );
