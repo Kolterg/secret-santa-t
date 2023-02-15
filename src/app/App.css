@@ -1,5 +1,5 @@
 .app-header {
-  background-color: rgb(255, 200, 200);
+  background-color: #DF333C;
   height: 50px;
   display: flex;
   justify-content: center;
@@ -13,7 +13,9 @@
 }
 
 .contentBox {
-  background-color: #8fe795;
+  background-color: #10ac13;
+  background: url(https://images.wallpaperscraft.ru/image/single/elka_shary_ukrasheniia_152784_1920x1080.jpg);
+  background-repeat: round;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,8 +23,8 @@
 }
 
 .content {
-  background-color: rgb(245, 115, 115);
   margin-bottom: 50px;
   width: 500px;
   min-height: 250px;
+  border-radius: 10px;
 }
