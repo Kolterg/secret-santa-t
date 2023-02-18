@@ -1,13 +1,14 @@
 .landing {
     background-color: #DF333C;
-    margin-bottom: 50px;
-    width: 500px;
+    margin-bottom: 50px;   
+    width: 500px; /* width: 31.25rem; == 500px / 16px default html font size */
     min-height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    text-align: center;
 }
 
 button {

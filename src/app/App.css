@@ -23,7 +23,7 @@
 
 .content {
   margin-bottom: 50px;
-  width: 500px;
+  width: 500px; /* width: 31.25rem; == 500px / 16px default html font size */
   min-height: 250px;
   border-radius: 10px;
 }
@@ -81,3 +81,30 @@
   text-decoration: none;
   color: #000000;
 }
+
+/** 
+h2 {
+  font-size: 1.5rem;
+}
+
+.link {
+  display: none;
+}
+@media screen and (min-width: 1920px) {
+  html {
+    font-size: 18px;
+  }
+} 
+@media screen and (min-width: 1024px) {
+  .icon.mobile {
+    display: none;
+  }
+  .link {
+    display: block;
+  }
+} 
+@media screen and (min-width: 1024px) {} 
+@media screen and (min-width: 1024px) {} 
+@media screen and (min-width: 1024px) {} 
+
+**/

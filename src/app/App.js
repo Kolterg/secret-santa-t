@@ -17,6 +17,9 @@ function App() {
           <Link to={''} className="link" >Головна</Link>
           <Link to={'add'} className="link" >Створити кімнату</Link>
           <Link to={'toch'} className="link" >Зв'язатися</Link>
+          <Link className="icon mobile">Г</Link>
+          <Link className="icon mobile">СК</Link>
+          <Link className="icon mobile">слава україні</Link>
         </header>
         <div className='contentBox'>
           <Routes className='content'>
