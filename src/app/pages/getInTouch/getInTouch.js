@@ -20,7 +20,7 @@ function GetInTouchPage() {
     };
 
     function createSendObj() {
-        const user = { name: name, santa_email: decryptData(encryptData), massage: text }
+        const user = { name: name, santa_email: decryptData(encryptData), message: text }
         return user;
     }
 
@@ -50,7 +50,7 @@ function GetInTouchPage() {
             <p>Поле для коду Санти</p>
             <input type={'text'} value={encryptData} onChange={e => setEncryptData(e.target.value)} />
             <p>Поле для листу бажань</p>
-            <textarea value={text} onChange={e => setText(e.target.value)} />
+            <textarea className='wishList' value={text} onChange={e => setText(e.target.value)} />
             <button className='submitBtn' onClick={() => popupOpen('popup1')}>Відправити</button>
 
 

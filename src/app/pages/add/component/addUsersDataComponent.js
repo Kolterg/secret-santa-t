@@ -62,12 +62,12 @@ function AddUserData({ value, getUsersData }) {
                     <label htmlFor={'username'}>Ім'я </label>
                     <input className={"textInput"} type={'text'} name={'name'} placeholder={"Введіть ім'я учасника"} value={form.name} onChange={handleChange} onBlur={onBlur} />
                 </div>
-                {errors.name.dirty && errors.name.message ? <p>{errors.name.message}</p> : null}
+                {errors.name.dirty && errors.name.message ? <label>{errors.name.message}</label> : null}
                 <div>
                     <label htmlFor={'username'}>Е-пошта </label>
                     <input className={"textInput"} type={'text'} name={'email'} placeholder={"Введіть email учасника"} value={form.email} onChange={handleChange} onBlur={onBlur} />
                 </div>
-                {errors.email.dirty && errors.email.message ? <p>{errors.email.message}</p> : null}
+                {errors.email.dirty && errors.email.message ? <label>{errors.email.message}</label> : null}
             </form>
         </div>
     );

@@ -14,9 +14,9 @@ function App() {
     <div className="app wrapper">
       <Router>
         <header className="app-header">
-          <Link to={''} className="link" >Main</Link>
-          <Link to={'add'} className="link" >Add</Link>
-          <Link to={'toch'} className="link" >Get in touch</Link>
+          <Link to={''} className="link" >Головна</Link>
+          <Link to={'add'} className="link" >Створити кімнату</Link>
+          <Link to={'toch'} className="link" >Зв'язатися</Link>
         </header>
         <div className='contentBox'>
           <Routes className='content'>
